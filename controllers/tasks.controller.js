@@ -1,36 +1,17 @@
 const Task = require('../models/tasks.model.js')
+const asyncWrapper = require('../middlewares/async.js');
 
-const getAllTasks = async (req, res)=> {
-    try {
+const getAllTasks = asyncWrapper(async (req, res)=> {
         const tasks = await Task.find({});
         res.status(200).json({tasks});
+});
 
-    } catch (error) {
-        console.error("Get All tasks error:", error.message);
-        res.status(500).json({
-            message: "Internal server error"
-        });
-
-    }
-}
-
-const createTask = async (req, res)=> {
-
-    try {
+const createTask = asyncWrapper( async (req, res)=> {
         const task = await Task.create(req.body);
         res.status(201).json({task});
+});
 
-    } catch (error) {
-        console.error("Create task error:", error.message);
-        res.status(500).json({
-            message: "Internal server error"
-        });
-    }
-    
-}
-
-const getTask = async (req, res)=> {
-try {
+const getTask = asyncWrapper(async (req, res)=> {
     const {id: taskID} = req.params;
     const task = await Task.findOne({_id:taskID});
 
@@ -41,18 +22,9 @@ try {
     }
 
     res.status(200).json({task});
+});
 
-} catch (error) {
-    console.error("Get task error:", error.message);
-    res.status(500).json({
-    message: "Internal server error"
-    });
-
-}
-}
-
-const updateTask = async (req, res)=> {
-    try {
+const updateTask = asyncWrapper(async (req, res)=> {
         const {id: taskID} = req.params;
         const task = await Task.findOneAndUpdate(
             {_id: taskID},
@@ -70,16 +42,9 @@ const updateTask = async (req, res)=> {
         }
 
         res.status(200).json({task});
-    } catch (error) {
-        console.error("Update task error:", error.message);
-        res.status(500).json({
-        message: "Internal server error"
-    });
-}
-}
+});
 
-const deleteTask = async (req, res)=> {
-    try {
+const deleteTask = asyncWrapper(async (req, res)=> {
         const {id: taskID} = req.params;
         const task = await Task.findOneAndDelete({_id: taskID});
 
@@ -93,13 +58,7 @@ const deleteTask = async (req, res)=> {
             message: 'Task deleted successfully!'
         });
 
-    } catch (error) {
-        console.error("Delete task error:", error.message);
-        res.status(500).json({
-        message: "Internal server error"
-        });
-    }
-}
+});
 
 
 

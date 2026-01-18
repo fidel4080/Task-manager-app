@@ -5,8 +5,8 @@ const editFormDOM = document.querySelector('.single-task-form')
 const editBtnDOM = document.querySelector('.task-edit-btn')
 const formAlertDOM = document.querySelector('.form-alert')
 
-const params = window.location.search
-const id = new URLSearchParams(params).get('id')
+const params = window.location.search;
+const id = new URLSearchParams(params).get('id');
 
 let tempName;
 
